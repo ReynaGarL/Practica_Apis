@@ -1,0 +1,15 @@
+{
+  "name": "ejercicio03",
+  "version": "1.0.0",
+  "description": "ejercicio 3",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "validator": "^10.8.0",
+    "yargs": "^12.0.2"
+  }
+}
