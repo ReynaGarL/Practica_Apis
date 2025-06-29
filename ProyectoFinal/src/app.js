@@ -1,14 +1,9 @@
 const path = require('path')
 const hbs = require('hbs')
 const express = require('express')
-
+const forecast = require('./utils/forecast') 
 const app = express()
-const port = process.env.PORT || 3000
-
-app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`)
-})
-
+const port = process.env.PORT || 3000;
 const publicDirectoryPath = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
@@ -23,8 +18,28 @@ app.use(express.static(publicDirectoryPath))
 
 app.get('', (req, res) => {
     res.render('index', {
-        title: 'Weather',
+        title: 'Clima',
         name: 'Reyna Garcia'
+    })
+})
+
+
+app.get('/weather', (req, res) => {
+    if (!req.query.address) {
+        return res.send({
+            error: 'Debes ingresar una localidad!'
+        })
+    }
+
+    forecast(req.query.address, (error, forecastData) => {
+        if (error) {
+            return res.send({ error })
+        }
+
+        res.send({
+            forecast: forecastData,
+            location: req.query.address
+        })
     })
 })
 
