@@ -12,8 +12,9 @@ const forecast = (location, callback) => {
             callback('No se pudo encontrar la ubicación.', undefined)
         } else {
             const data = body.current
-            const info = `${body.location.name}, ${body.location.region}, ${body.location.country}: ${data.weather_descriptions[0]}. Actualmente hay ${data.temperature}°C. Se siente como ${data.feelslike}°C. Humedad: ${data.humidity}%.`
-            callback(undefined, info)
+            const region = Buffer.from(body.location.region, 'latin1').toString('utf8');
+            const info = `${body.location.name}, ${region}, ${body.location.country}: ${data.weather_descriptions[0]}. Actualmente hay ${data.temperature}°C. Se siente como ${data.feelslike}°C. Humedad: ${data.humidity}%.`;
+            callback(undefined, info);
         }
     })
 }
